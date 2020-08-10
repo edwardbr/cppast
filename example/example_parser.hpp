@@ -36,10 +36,10 @@ int example_main(int argc, char* argv[], const cppast::cpp_entity_index& index, 
             return 1;
         }
 
-        if (parser.error())
+        /*if (parser.error())
             // a non-fatal parse error
             // error has been logged to stderr
-            return 1;
+            return 1;*/
 
         for (auto& file : parser.files())
             cb(file);

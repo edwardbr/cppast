@@ -7,6 +7,7 @@ function(_cppast_example name)
     target_link_libraries(cppast_example_${name} PUBLIC cppast)
 endfunction()
 
+_cppast_example(dumper)
 _cppast_example(ast_printer)
 _cppast_example(comparison)
 _cppast_example(documentation_generator)

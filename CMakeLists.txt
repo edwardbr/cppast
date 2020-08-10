@@ -7,8 +7,10 @@ project(cppast VERSION 0.0)
 
 # options
 option(CPPAST_BUILD_TEST "whether or not to build the tests" OFF)
-option(CPPAST_BUILD_EXAMPLE "whether or not to build the examples" OFF)
-option(CPPAST_BUILD_TOOL "whether or not to build the tool" OFF)
+option(CPPAST_BUILD_EXAMPLE "whether or not to build the examples" ON)
+option(CPPAST_BUILD_TOOL "whether or not to build the tool" ON)
+
+set(CMAKE_CXX_STANDARD 17)
 
 if(${CPPAST_BUILD_TEST} OR (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
     set(build_test ON)
@@ -36,6 +38,8 @@ if(build_test AND CPPAST_TEST_GCOV AND (CMAKE_CXX_COMPILER_ID STREQUAL "GNU"))
     include(CodeCoverage)
     APPEND_COVERAGE_COMPILER_FLAGS()
 endif()
+
+add_compile_options("-D_GLIBCXX_DEBUG")
 
 add_subdirectory(src)
 

@@ -8,6 +8,7 @@
 #include <cppast/cpp_entity_kind.hpp>
 #include <cppast/cpp_file.hpp>
 #include <cppast/detail/assert.hpp>
+#include <iostream>
 
 using namespace cppast;
 
@@ -26,10 +27,21 @@ void cpp_entity_index::register_definition(cpp_entity_id                        
     {
         // already in map, override declaration
         auto& value = result.first->second;
-        if (value.is_definition && !is_template_specialization(value.entity->kind()))
-            // allow duplicate definition of template specializations as a workaround for MacOS
-            throw duplicate_definition_error();
-        value.is_definition = true;
+        try
+        {        
+            if (value.is_definition && !is_template_specialization(value.entity->kind()))
+                // allow duplicate definition of template specializations as a workaround for MacOS
+                throw duplicate_definition_error();
+            value.is_definition = true;
+        }
+        catch(const duplicate_definition_error& e)
+        {
+            throw;
+        }
+        catch(...)
+        {
+            std::cerr << "oops\n";
+        }
         value.entity        = entity;
     }
 }
